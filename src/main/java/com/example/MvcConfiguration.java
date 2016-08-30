@@ -1,6 +1,8 @@
 package com.example;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
+@ComponentScan({"com.example"})
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
@@ -30,20 +33,5 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        if(!registry.hasMappingForPattern("/webjars/**")) {
-            registry.addResourceHandler("/webjars/**")
-                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
-        }
-
-        if(!registry.hasMappingForPattern("/static/**"))
-        {
-            registry.addResourceHandler("/static/**")
-                    .addResourceLocations("classpath:/static/");
-        }
-
-        super.addResourceHandlers(registry);
-    }
 }
